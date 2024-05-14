@@ -18,7 +18,13 @@ class Snake:
             self.coordinates.append([i + 2, 4])
 
         for x, y in self.coordinates:
-            square = canvas.create_rectangle(x * CELL_SIZE, y * CELL_SIZE, x * CELL_SIZE + CELL_SIZE, y * CELL_SIZE + CELL_SIZE, fill=SNAKE_COLOR)
+            square = canvas.create_rectangle(
+                x * CELL_SIZE,
+                y * CELL_SIZE,
+                x * CELL_SIZE + CELL_SIZE,
+                y * CELL_SIZE + CELL_SIZE,
+                fill=SNAKE_COLOR
+            )
             self.squares.append(square)
 
 
