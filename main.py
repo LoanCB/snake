@@ -1,3 +1,4 @@
+import random
 import tkinter as tk
 
 WIDTH = 10
@@ -6,26 +7,35 @@ CELL_SIZE = 50
 SPEED = 200
 DEFAULT_BODY_SIZE = 2
 SNAKE_COLOR = '#FFFFFF'
+FOOD_COLOR = '#FF0000'
 
 
 class Snake:
     def __init__(self):
-        self.body_size = DEFAULT_BODY_SIZE
         self.coordinates = []
-        self.squares = []
 
-        for i in range(0, self.body_size):
-            self.coordinates.append([i + 2, 4])
+        for i in range(0, DEFAULT_BODY_SIZE):
+            x = (i + 2) * CELL_SIZE
+            y = 4 * CELL_SIZE
+            self.coordinates.append([x, y])
+            canvas.create_rectangle(x, y, x + CELL_SIZE, y + CELL_SIZE, fill=SNAKE_COLOR)
 
-        for x, y in self.coordinates:
-            square = canvas.create_rectangle(
-                x * CELL_SIZE,
-                y * CELL_SIZE,
-                x * CELL_SIZE + CELL_SIZE,
-                y * CELL_SIZE + CELL_SIZE,
-                fill=SNAKE_COLOR
-            )
-            self.squares.append(square)
+        self.generate_food()
+
+    def generate_food(self):
+        while True:
+            x = random.randint(0, WIDTH - 1) * CELL_SIZE
+            y = random.randint(0, WIDTH - 1) * CELL_SIZE
+            coordinate = [x, y]
+            if coordinate not in self.coordinates:
+                canvas.create_oval(
+                    x,
+                    y,
+                    x + CELL_SIZE,
+                    y + CELL_SIZE,
+                    fill=FOOD_COLOR,
+                )
+                return coordinate
 
 
 window = tk.Tk()
